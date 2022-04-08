@@ -7,4 +7,6 @@ tag: path
 
 1. Kamma
 2. Rebirt
-3. [[4 Noble Truth]]
+3. [[notes/4 Noble Truths/4 Noble Truth]]
+
+
