@@ -4,8 +4,6 @@ tags:
 - truths
 ---
 
-# 4 Noble Truths
-
 1. [[Suffering]] – To Be Understood
 2. [[Origin]] of Suffering – To Be Abandonned
 3. [[Cessation]] of Suffering – To Be Realized
