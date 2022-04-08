@@ -1,5 +1,5 @@
 ---
-title: The Buddha's Mind
+title: "The Buddha's Mind"
 ---
 
 This is a test for the moment.
