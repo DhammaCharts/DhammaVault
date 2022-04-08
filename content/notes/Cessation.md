@@ -1,5 +1,6 @@
 ---
-tags: Truth
+tag:
+  - truth
 ---
 
 # Cessation of Suffering

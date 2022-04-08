@@ -1,5 +1,6 @@
 ---
-tags: Truth
+tag:
+  - truth
 ---
 
 # The Noble Truth of Suffering

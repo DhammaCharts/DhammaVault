@@ -1,5 +1,5 @@
 ---
-tags: Path
+tag: path
 
 ---
 

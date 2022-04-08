@@ -1,3 +1,3 @@
 ---
-tags: Path
+tag: path
 ---

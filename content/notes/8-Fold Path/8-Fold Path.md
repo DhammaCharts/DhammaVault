@@ -1,8 +1,12 @@
 ---
-tags : Path, Truth
+tags :
+  - path
+  - truth
 ---
 
-The **Noble 8-Fold Path** is composed of : 
+# 8-Fold Noble Path
+
+The **Noble 8-Fold Path** is composed of :
 
 1. [[Right View]]
 2. [[Right Intention]]
@@ -12,4 +16,3 @@ The **Noble 8-Fold Path** is composed of :
 6. [[Right Effort]]
 7. [[Right Mindfulness]]
 8. [[Right Concentration]]
-
