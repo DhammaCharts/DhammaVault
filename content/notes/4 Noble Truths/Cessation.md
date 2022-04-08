@@ -1,6 +1,7 @@
 ---
+title: "Cessation of Suffering"
 tag:
-  - truth
+  - Truth
 ---
 
-# Cessation of Suffering
+

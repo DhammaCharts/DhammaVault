@@ -1,3 +1,5 @@
 ---
-tag: path
+title: "Right Intention"
+tag:
+  - Path
 ---

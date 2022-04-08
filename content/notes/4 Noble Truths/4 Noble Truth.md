@@ -1,7 +1,7 @@
 ---
 title: "4 Noble Truths"
-tags:
-- truths
+tag:
+- Truth
 ---
 
 1. [[notes/4 Noble Truths/Suffering]] – To Be Understood

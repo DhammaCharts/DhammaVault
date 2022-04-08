@@ -1,6 +1,5 @@
 ---
+title: "Origin of Suffering"
 tag:
-  - truth
+  - Truth
 ---
-
-# Origin of Suffering

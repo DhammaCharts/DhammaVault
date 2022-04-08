@@ -1,6 +1,7 @@
 ---
-tag: path
-
+title: "Right View"
+tag:
+  - Path
 ---
 
 **Right view** is understanding of :

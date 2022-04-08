@@ -1,6 +1,6 @@
 ---
+title: "Suffering"
 tag:
-  - truth
+  - Truth
 ---
 
-# The Noble Truth of Suffering

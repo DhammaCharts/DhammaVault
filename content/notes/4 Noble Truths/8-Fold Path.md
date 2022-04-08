@@ -1,10 +1,9 @@
 ---
-tags :
-  - path
-  - truth
+title: "8-Fold Noble Path"
+tag:
+- Truth
+- Path
 ---
-
-# 8-Fold Noble Path
 
 The **Noble 8-Fold Path** is composed of :
 
