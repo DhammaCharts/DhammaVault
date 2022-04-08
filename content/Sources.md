@@ -1,7 +1,6 @@
 ---
-
+title: "Sources"
 ---
-
 
 - [Buddhist Dictionary](https://fractalcitta.github.io/Buddhist-Dictionary/dic_idx.html)
 - [Interactive Dhamma Guide](https://www.idhamma.org/) : Prezi Presentation, very good !

@@ -8,5 +8,7 @@ description:
 page_title:
   "Dhamma Vault"
 links:
+  - link_name: Sources
+    link: https://dhammacharts.github.io/dhammas/source.html
   - link_name: DhammaChart
     link: https://dhammacharts.github.io
