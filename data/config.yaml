@@ -6,9 +6,9 @@ enableLatex: true
 description:
   All the concepts of Dhamma
 page_title:
-  "Dhamma Vault"
+  "DhammaVault"
 links:
   - link_name: Sources
     link: https://dhammacharts.github.io/DhammaVault/source.html
-  - link_name: DhammaChart
+  - link_name: DhammaCharts
     link: https://dhammacharts.github.io

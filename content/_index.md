@@ -1,5 +1,5 @@
 ---
-title: "Dhamma Vault"
+title: "DhammaVault"
 ---
 
 This is a test for the moment.
