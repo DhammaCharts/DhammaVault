@@ -1,5 +1,5 @@
 ---
-title: "The Buddha's Mind"
+title: "Dhamma Vault"
 ---
 
 This is a test for the moment.
