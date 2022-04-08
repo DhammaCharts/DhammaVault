@@ -1,5 +1,5 @@
 ---
 title: "Right Livelyhood"
-tag:
+tags:
   - Path
 ---

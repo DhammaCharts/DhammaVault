@@ -1,6 +1,6 @@
 ---
 title: "Suffering"
-tag:
+tags:
   - Truth
 ---
 

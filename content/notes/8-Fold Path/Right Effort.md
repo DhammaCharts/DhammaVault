@@ -1,5 +1,5 @@
 ---
 title: "Right Effort"
-tag:
+tags:
   - Path
 ---

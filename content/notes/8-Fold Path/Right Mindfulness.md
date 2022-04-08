@@ -1,5 +1,5 @@
 ---
 title: "Right Mindfulness"
-tag:
+tags:
   - Path
 ---

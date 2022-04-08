@@ -1,6 +1,6 @@
 ---
 title: "Cessation of Suffering"
-tag:
+tags:
   - Truth
 ---
 

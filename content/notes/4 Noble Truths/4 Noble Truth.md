@@ -1,6 +1,6 @@
 ---
 title: "4 Noble Truths"
-tag:
+tags:
 - Truth
 ---
 

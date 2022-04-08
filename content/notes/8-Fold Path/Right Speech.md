@@ -1,5 +1,5 @@
 ---
 title: "Right Speech"
-tag:
+tags:
   - Path
 ---

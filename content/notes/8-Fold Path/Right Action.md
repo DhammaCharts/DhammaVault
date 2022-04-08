@@ -1,5 +1,5 @@
 ---
 title: "Right Action"
-tag:
+tags:
   - Path
 ---

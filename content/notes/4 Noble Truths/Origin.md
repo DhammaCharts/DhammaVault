@@ -1,5 +1,5 @@
 ---
 title: "Origin of Suffering"
-tag:
+tags:
   - Truth
 ---

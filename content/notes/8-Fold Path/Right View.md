@@ -1,6 +1,6 @@
 ---
 title: "Right View"
-tag:
+tags:
   - Path
 ---
 

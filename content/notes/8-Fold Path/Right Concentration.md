@@ -1,5 +1,5 @@
 ---
 title: "Right Concentration"
-tag:
+tags:
   - Path
 ---
