@@ -1,4 +1,4 @@
-name: DhammaChart
+name: DhammaVault
 enableToc: true
 openToc: false
 enableLinkPreview: true
@@ -6,7 +6,7 @@ enableLatex: true
 description:
   All the concepts of Dhamma
 page_title:
-  "The Buddha's Mind"
+  "Dhamma Vault"
 links:
   - link_name: DhammaChart
     link: https://dhammacharts.github.io
