@@ -11,6 +11,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
 
   const scale = 1.5;
   const fontSize = "7px";
+  const opacityNode = 0.7;
 
   // -------------------
 
@@ -188,9 +189,10 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
 
       d3.select(this.parentNode)
         .select("text")
+        .raise()
         .transition()
         .duration(200)
-        .style("opacity", 0)
+        .style("opacity", opacityNode)
 
       d3.selectAll(".node")
         .transition()
@@ -214,7 +216,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .attr("dx", 8)
     .attr("dy", ".35em")
     .text((d) => content[d.id]?.title || d.id.replace("-", " "))
-    .style("opacity", 0.7)
+    .style("opacity", opacityNode)
     // .clone(true).lower()
     //   .attr("fill", "none")
     //   .attr("stroke", "white")
