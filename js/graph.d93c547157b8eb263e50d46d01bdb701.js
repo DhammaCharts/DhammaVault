@@ -214,9 +214,9 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .scaleExtent([0.25, 4])
       .on("zoom", ({ transform }) => {
         link.attr("transform", transform);
-        node.attr("transform", transform);
         labels.attr("transform", transform);
         labelsNew.attr("transform", transform);
+        node.attr("transform", transform).raise();
       }));
   }
 
@@ -236,6 +236,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     node
       .attr("cx", d => d.x)
       .attr("cy", d => d.y)
+      .raise()
 
   });
 }
