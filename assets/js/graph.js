@@ -242,6 +242,8 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       // .text("Test");
       .text(content);
 
+  console.log(content);
+
   // set panning
 
   if (enableZoom) {
