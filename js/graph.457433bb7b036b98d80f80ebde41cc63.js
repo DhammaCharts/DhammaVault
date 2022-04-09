@@ -1,4 +1,27 @@
 async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLegend, enableZoom) {
+
+  // center force, repel force, link force, link distance are in content/.obsidian/graph.json under
+  // "collapse-filter": true,
+  // "search": "",
+  // "showTags": false,
+  // "showAttachments": false,
+  // "hideUnresolved": false,
+  // "showOrphans": true,
+  // "collapse-color-groups": false,
+  // "colorGroups": [],
+  // "collapse-display": true,
+  // "showArrow": false,
+  // "textFadeMultiplier": 0,
+  // "nodeSizeMultiplier": 1,
+  // "lineSizeMultiplier": 1,
+  // "collapse-forces": false,
+  // "centerStrength": 0.518713248970312,
+  // "repelStrength": 10,
+  // "linkStrength": 1,
+  // "linkDistance": 250,
+  // "scale": 0.8905936048440424,
+  // "close": false
+
   const { index, links, content } = await fetchData
   const curPage = url.replace(baseUrl, "")
 
@@ -208,6 +231,9 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .raise()
       .call(drag(simulation));
 
+    const test = svg
+        .append("text")
+        .text("Test");
   // set panning
 
   if (enableZoom) {
