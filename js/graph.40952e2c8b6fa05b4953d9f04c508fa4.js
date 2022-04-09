@@ -7,6 +7,19 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
   // modifying fetchData in /layouts/partials/head.html is out of my domain skills at the minute.
   // Therfore, I will just add variables to modify the graph here.
 
+  // A possibilty could be use frontmatter of the _index page like :
+  // ---
+  //  title: "Title page"
+  //  scale : 1.5
+  //  repelForce : 3
+  //  centerForce : 1
+  //  linkForce : 1
+  //  linkDistance : 1
+  //  fontSize : "7px"
+  // ---
+  //
+  // and then we can access that with content[""].scale
+
   // GRAPH VARIABLES
 
   const scale = 1.5; // not used, could modify width ?
@@ -241,6 +254,9 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
   //     .text(content);
 
   console.log(content); // /.obsidian dosen't apear in content.
+  console.log(content[]); // /.obsidian dosen't apear in content.
+  console.log(content[""]); // /.obsidian dosen't apear in content.
+  console.log(content[""].scale); // /.obsidian dosen't apear in content.
 
   // set panning
 
