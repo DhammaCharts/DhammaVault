@@ -238,7 +238,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
 
   const test = svg
       .append("text")
-      .style("font-size", fontSize)
+      .style("font-size", "12px")
       // .text("Test");
       .text(content[".obsidian"]);
 
