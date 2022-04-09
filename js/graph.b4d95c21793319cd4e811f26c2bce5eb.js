@@ -190,14 +190,16 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .style("pointer-events", "none")
     .call(drag(simulation));
 
-  const laberlsNew =  graphNode.append("text")
+  const labelsNew =  graphNode.append("text")
     .attr("dx", 12)
     .attr("dy", ".35em")
     .text((d) => content[d.id]?.title || d.id.replace("-", " "))
-    .clone(true).lower()
-      .attr("fill", "none")
-      .attr("stroke", "white")
-      .attr("stroke-width", 3);
+    // .clone(true).lower()
+    //   .attr("fill", "none")
+    //   .attr("stroke", "white")
+    //   .attr("stroke-width", 3);
+    .call(drag(simulation));
+
 
   // set panning
 
@@ -222,8 +224,11 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     node
       .attr("cx", d => d.x)
       .attr("cy", d => d.y)
-    labels
-      .attr("x", d => d.x)
-      .attr("y", d => d.y)
+      labels
+        .attr("x", d => d.x)
+        .attr("y", d => d.y)
+        labelsNew
+          .attr("x", d => d.x)
+          .attr("y", d => d.y)
   });
 }
