@@ -22,6 +22,9 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
   // "scale": 0.8905936048440424,
   // "close": false
 
+  const scale = 1.5;
+  const fontSize = "7px";
+
   const { index, links, content } = await fetchData
   const curPage = url.replace(baseUrl, "")
 
@@ -106,7 +109,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .attr('width', width)
     .attr('height', height)
     .attr("viewBox", [-width / 2, -height / 2, width, height])
-    .style("font-size", "7px");
+    .style("font-size", fontSize);
 
 
   if (enableLegend) {
