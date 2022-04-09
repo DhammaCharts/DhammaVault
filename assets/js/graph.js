@@ -82,7 +82,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-    .attr("viewBox", [-width / 2, -height / 2, width, height]);
+    .attr("viewBox", [-width / 2, -height / 2, width, height])
     .style("font-size", "7px");
 
 
