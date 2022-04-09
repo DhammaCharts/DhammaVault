@@ -253,10 +253,10 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
   //     // .text("Test");
   //     .text(content);
 
-  console.log(content); // /.obsidian dosen't apear in content.
-  console.log(content[]); // /.obsidian dosen't apear in content.
-  console.log(content[""]); // /.obsidian dosen't apear in content.
-  console.log(content[""].scale); // /.obsidian dosen't apear in content.
+  // console.log(content); // /.obsidian dosen't apear in content.
+  // console.log(content[]); // /.obsidian dosen't apear in content.
+  // console.log(content[""]); // /.obsidian dosen't apear in content.
+  // console.log(content[""].scale); // /.obsidian dosen't apear in content.
 
   // set panning
 
