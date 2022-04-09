@@ -182,10 +182,6 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
         .duration(200)
         .style("opacity", 1)
     }).on("mouseleave", function(_, d) {
-      d3.selectAll(".node")
-        .transition()
-        .duration(200)
-        .attr("fill", color)
 
       const currentId = d.id
       const linkNodes = d3.selectAll(".link").filter(d => d.source.id === currentId || d.target.id === currentId)
@@ -201,7 +197,12 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
         .duration(200)
         .style("opacity", 0)
 
-      node.raise();
+      d3.selectAll(".node")
+        .transition()
+        .duration(200)
+        .attr("fill", color)
+        .raise();
+
     })
     .call(drag(simulation));
 
