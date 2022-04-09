@@ -190,6 +190,15 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .style("pointer-events", "none")
     .call(drag(simulation));
 
+  const laberlsNew =  graphNode.append("text")
+    .attr("dx", 12)
+    .attr("dy", ".35em")
+    .text((d) => content[d.id]?.title || d.id.replace("-", " "))
+    .clone(true).lower()
+      .attr("fill", "none")
+      .attr("stroke", "white")
+      .attr("stroke-width", 3);
+
   // set panning
 
   if (enableZoom) {
