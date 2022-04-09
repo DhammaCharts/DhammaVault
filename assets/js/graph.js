@@ -200,11 +200,10 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
         .transition()
         .duration(200)
         .style("opacity", 0)
+
+      node.raise();
     })
     .call(drag(simulation));
-
-
-
 
   // set panning
 
