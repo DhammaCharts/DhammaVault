@@ -240,7 +240,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .append("text")
       .style("font-size", "12px")
       // .text("Test");
-      .text(content[".obsidian"]);
+      .text(content);
 
   // set panning
 
