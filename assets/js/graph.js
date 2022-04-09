@@ -222,14 +222,15 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .attr("y1", d => d.source.y)
       .attr("x2", d => d.target.x)
       .attr("y2", d => d.target.y)
+    labels
+      .attr("x", d => d.x)
+      .attr("y", d => d.y)
+    labelsNew
+      .attr("x", d => d.x)
+      .attr("y", d => d.y)
     node
       .attr("cx", d => d.x)
       .attr("cy", d => d.y)
-      labels
-        .attr("x", d => d.x)
-        .attr("y", d => d.y)
-        labelsNew
-          .attr("x", d => d.x)
-          .attr("y", d => d.y)
+
   });
 }
