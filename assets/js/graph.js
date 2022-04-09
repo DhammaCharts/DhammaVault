@@ -9,9 +9,17 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
 
   // GRAPH VARIABLES
 
-  const scale = 1.5;
+  const scale = 1.5; // not used, could modify width ?
+  const repelForce = 3;
+  const centerForce = 1; // not used
+  const linkForce = 1; // not used
+  const linkDistance = 1 // not used
+
   const fontSize = "7px";
   const opacityNode = 0.7;
+
+  // could add variables for text position dx dy on node
+  // add varialbe for arrow, text-fade threshold, node size, link thickness,
 
   // -------------------
 
@@ -90,7 +98,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
   const width = document.getElementById("graph-container").offsetWidth
 
   const simulation = d3.forceSimulation(data.nodes)
-    .force("charge", d3.forceManyBody().strength(-300))
+    .force("charge", d3.forceManyBody().strength(-100 * repelForce))
     .force("link", d3.forceLink(data.links).id(d => d.id))
     .force("center", d3.forceCenter());
 
