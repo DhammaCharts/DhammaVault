@@ -211,6 +211,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
         link.attr("transform", transform);
         node.attr("transform", transform);
         labels.attr("transform", transform);
+        labelsNew.attr("transform", transform);
       }));
   }
 
