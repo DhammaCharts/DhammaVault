@@ -119,7 +119,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
 
     // draw labels
     const labels = graphNode.append("text")
-      .attr("dx", 12)
+      .attr("dx", 8)
       .attr("dy", ".35em")
       .text((d) => content[d.id]?.title || d.id.replace("-", " "))
       .style("opacity", 0)
@@ -127,7 +127,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .call(drag(simulation));
 
     const labelsNew =  graphNode.append("text")
-      .attr("dx", 12)
+      .attr("dx", 8)
       .attr("dy", ".35em")
       .text((d) => content[d.id]?.title || d.id.replace("-", " "))
       .style("opacity", 0.7)
