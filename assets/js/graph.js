@@ -212,31 +212,36 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     })
     .call(drag(simulation));
 
-    // draw labels
-    const labels = graphNode.append("text")
-      .attr("dx", 8)
-      .attr("dy", ".35em")
-      .text((d) => content[d.id]?.title || d.id.replace("-", " "))
-      .style("opacity", 0)
-      .style("pointer-events", "none")
-      .raise()
-      .call(drag(simulation));
+  // draw labels
+  const labels = graphNode.append("text")
+    .attr("dx", 8)
+    .attr("dy", ".35em")
+    .text((d) => content[d.id]?.title || d.id.replace("-", " "))
+    .style("opacity", 0)
+    .style("pointer-events", "none")
+    .raise()
+    .call(drag(simulation));
 
-    const labelsNew =  graphNode.append("text")
-      .attr("dx", 8)
-      .attr("dy", ".35em")
-      .text((d) => content[d.id]?.title || d.id.replace("-", " "))
-      .style("opacity", 0.7)
-      // .clone(true).lower()
-      //   .attr("fill", "none")
-      //   .attr("stroke", "white")
-      //   .attr("stroke-width", 3);
-      .raise()
-      .call(drag(simulation));
+  const labelsNew =  graphNode.append("text")
+    .attr("dx", 8)
+    .attr("dy", ".35em")
+    .text((d) => content[d.id]?.title || d.id.replace("-", " "))
+    .style("opacity", 0.7)
+    // .clone(true).lower()
+    //   .attr("fill", "none")
+    //   .attr("stroke", "white")
+    //   .attr("stroke-width", 3);
+    .raise()
+    .call(drag(simulation));
 
-    const test = svg
-        .append("text")
-        .text("Test");
+  // for testiing
+
+  const test = svg
+      .append("text")
+      .style("font-size", fontSize)
+      // .text("Test");
+      .text(content[".obsidian"]);
+
   // set panning
 
   if (enableZoom) {
