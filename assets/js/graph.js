@@ -1,29 +1,18 @@
 async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLegend, enableZoom) {
 
-  // center force, repel force, link force, link distance are in content/.obsidian/graph.json under
-  // "collapse-filter": true,
-  // "search": "",
-  // "showTags": false,
-  // "showAttachments": false,
-  // "hideUnresolved": false,
-  // "showOrphans": true,
-  // "collapse-color-groups": false,
-  // "colorGroups": [],
-  // "collapse-display": true,
-  // "showArrow": false,
-  // "textFadeMultiplier": 0,
-  // "nodeSizeMultiplier": 1,
-  // "lineSizeMultiplier": 1,
-  // "collapse-forces": false,
-  // "centerStrength": 0.518713248970312,
-  // "repelStrength": 10,
-  // "linkStrength": 1,
-  // "linkDistance": 250,
-  // "scale": 0.8905936048440424,
-  // "close": false
+  // My first idea was to fetch data form the content/.obsidian/graph.json
+  // to mimic the behaviour of the graph from obsidian using
+  // center force, repel force, link force, link distance
+  // but .obsidian is not in content by fetchData.
+  // modifying fetchData in /layouts/partials/head.html is out of my domain skills at the minute.
+  // Therfore, I will just add variables to modify the graph here.
+
+  // GRAPH VARIABLES
 
   const scale = 1.5;
   const fontSize = "7px";
+
+  // -------------------
 
   const { index, links, content } = await fetchData
   const curPage = url.replace(baseUrl, "")
@@ -207,7 +196,6 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
         .transition()
         .duration(200)
         .attr("fill", color)
-        .raise();
 
     })
     .call(drag(simulation));
@@ -236,13 +224,13 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
 
   // for testiing
 
-  const test = svg
-      .append("text")
-      .style("font-size", "12px")
-      // .text("Test");
-      .text(content);
+  // const test = svg
+  //     .append("text")
+  //     .style("font-size", "12px")
+  //     // .text("Test");
+  //     .text(content);
 
-  console.log(content);
+  // console.log(content); // /.obsidian dosen't apear in content.
 
   // set panning
 
