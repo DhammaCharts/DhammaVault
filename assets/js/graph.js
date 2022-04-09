@@ -83,6 +83,8 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .attr('width', width)
     .attr('height', height)
     .attr("viewBox", [-width / 2, -height / 2, width, height]);
+    .style("font-size", "7px");
+
 
   if (enableLegend) {
     const legend = [
