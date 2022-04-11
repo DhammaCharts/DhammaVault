@@ -1,35 +1,25 @@
-async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLegend, enableZoom) {
+async function drawGraph(url,
+  baseUrl,
+  pathColors,
+  depth,
+  enableDrag,
+  enableLegend,
+  enableZoom,
+  scale,
+  repelForce,
+  centerForce,
+  linkDistance,
+  fontSize,
+  opacityNode,
+  labelBottom = true,
+  squareFrame = false) {
 
-  // My first idea was to fetch data form the content/.obsidian/graph.json
-  // to mimic the behaviour of the graph from obsidian using
-  // center force, repel force, link force, link distance
-  // but .obsidian is not in content by fetchData.
-  // modifying fetchData in /layouts/partials/head.html is out of my domain skills at the minute.
-  // Therfore, I will just add variables to modify the graph here.
 
-  // A possibilty could be use frontmatter of the _index page like :
-  // ---
-  //  title: "Title page"
-  //  scale : 1.5
-  //  repelForce : 3
-  //  centerForce : 1
-  //  linkForce : 1
-  //  linkDistance : 1
-  //  fontSize : "7px"
-  // ---
-  //
-  // and then we can access that with content[""].scale
+  // var doc = jsyaml.load('greeting: hello\nname: world');
 
-  // GRAPH VARIABLES
+  // console.log(parse(doc))
+  // Graph variable are in data/graphConfig.yaml
 
-  const scale = 1.5; // not used, could modify width ?
-  const repelForce = 3;
-  const centerForce = 1; // not used
-  const linkForce = 1; // not used
-  const linkDistance = 1 // not used
-
-  const fontSize = "7px";
-  const opacityNode = 0.7;
 
   // could add variables for text position dx dy on node
   // add varialbe for arrow, text-fade threshold, node size, link thickness,
@@ -107,8 +97,10 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .on("end", enableDrag ? dragended : noop);
   }
 
-  const height = 250
+  const height = squareFrame ? 500 : 250;
   const width = document.getElementById("graph-container").offsetWidth
+
+  // simulation
 
   const simulation = d3.forceSimulation(data.nodes)
     .force("charge", d3.forceManyBody().strength(-100 * repelForce))
@@ -119,7 +111,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-    .attr("viewBox", [-width / 2, -height / 2, width, height])
+    .attr("viewBox", [-width / 2 * 1 / scale, -height / 2 * 1 / scale, width * 1 / scale, height * 1 / scale])
     .style("font-size", fontSize);
 
 
@@ -154,21 +146,27 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .data(data.nodes)
     .enter().append("g")
 
+  // calculate node Radious
+
+  const nodeRadius = (d) => {
+    const numOut = index.links[d.id]?.length || 0;
+    const numIn = index.backlinks[d.id]?.length || 0;
+    return 3 + (numOut + numIn) / 4;
+  }
+
   // draw individual nodes
+
+
   const node = graphNode.append("circle")
     .attr("class", "node")
     .attr("id", (d) => d.id)
-    .attr("r", (d) => {
-      const numOut = index.links[d.id]?.length || 0
-      const numIn = index.backlinks[d.id]?.length || 0
-      return 3 + (numOut + numIn) / 4
-    })
+    .attr("r", (d) => nodeRadius(d))
     .attr("fill", color)
     .style("cursor", "pointer")
     .on("click", (_, d) => {
       window.location.href = baseUrl + '/' + decodeURI(d.id).replace(/\s+/g, '-')
     })
-    .on("mouseover", function(_, d) {
+    .on("mouseover", function (_, d) {
       d3.selectAll(".node")
         .transition()
         .duration(100)
@@ -198,18 +196,20 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
         .transition()
         .duration(200)
         .style("opacity", 1)
-    }).on("mouseleave", function(_, d) {
+    }).on("mouseleave", function (_, d) {
 
       const currentId = d.id
       const linkNodes = d3.selectAll(".link").filter(d => d.source.id === currentId || d.target.id === currentId)
+
+      console.log(repelForce);
 
       linkNodes
         .transition()
         .duration(200)
         .attr("stroke", "var(--g-link)")
 
-      d3.select(this.parentNode)
-        .select("text")
+      d3
+        .selectAll("text")
         .raise()
         .transition()
         .duration(200)
@@ -224,18 +224,11 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     .call(drag(simulation));
 
   // draw labels
-  const labels = graphNode.append("text")
-    .attr("dx", 8)
-    .attr("dy", ".35em")
-    .text((d) => content[d.id]?.title || d.id.replace("-", " "))
-    .style("opacity", 0)
-    .style("pointer-events", "none")
-    .raise()
-    .call(drag(simulation));
 
-  const labelsNew =  graphNode.append("text")
-    .attr("dx", 8)
-    .attr("dy", ".35em")
+  const labels = graphNode.append("text")
+    .attr("dx", labelBottom ? 0 : d => nodeRadius(d) + 4 + "px") // radius is in px
+    .attr("dy", labelBottom ? d => nodeRadius(d) + 8 + "px" : ".35em") // radius is in px 
+    .attr("text-anchor", labelBottom ? "middle" : "start")
     .text((d) => content[d.id]?.title || d.id.replace("-", " "))
     .style("opacity", opacityNode)
     // .clone(true).lower()
@@ -244,6 +237,8 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     //   .attr("stroke-width", 3);
     .raise()
     .call(drag(simulation));
+
+
 
   // for testiing
 
@@ -267,7 +262,6 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
       .on("zoom", ({ transform }) => {
         link.attr("transform", transform);
         labels.attr("transform", transform);
-        labelsNew.attr("transform", transform);
         node.attr("transform", transform).raise();
       }));
   }
@@ -282,9 +276,7 @@ async function drawGraph(url, baseUrl, pathColors, depth, enableDrag, enableLege
     labels
       .attr("x", d => d.x)
       .attr("y", d => d.y)
-    labelsNew
-      .attr("x", d => d.x)
-      .attr("y", d => d.y)
+
     node
       .attr("cx", d => d.x)
       .attr("cy", d => d.y)
