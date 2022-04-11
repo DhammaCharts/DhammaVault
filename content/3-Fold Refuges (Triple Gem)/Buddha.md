@@ -12,3 +12,5 @@ tags:
 7. Teacher of devas and humans (_satthā deva-manussānaṃ_)
 8. The Enlightened One (_buddho_)
 9. The Blessed One (_bhagavā_)
+
+[4 Sights](4%20Sights/4%20Sights.md)
