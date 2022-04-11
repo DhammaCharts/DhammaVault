@@ -2,5 +2,15 @@ enableLegend: false
 enableDrag: true
 enableZoom: true
 depth: -1 # set to -1 to show full graph
+labelBottom: true
+scale: 1.8
+repelForce: 2
+centerForce: 1
+linkDistance: 1
+fontSize: "7px"
+opacityNode: 0.6
 paths:
-  - /moc: "#4388cc"
+  - /Right: "#4388cc"
+
+# could have another set of variable for the index graph (global graph)
+# and local graph for notes
