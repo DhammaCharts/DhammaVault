@@ -4,13 +4,14 @@ enableZoom: true
 depth: -1 # set to -1 to show full graph
 labelBottom: true
 scale: 1.8
-repelForce: 2
+repelForce: 1
 centerForce: 1
 linkDistance: 1
 fontSize: "7px"
 opacityNode: 0.6
 paths:
-  - /Right: "#4388cc"
+  - /8-Fold-Path: "#a6852b"
+  - /4-Noble-Truths: "#5c2ba6"
 
 # could have another set of variable for the index graph (global graph)
 # and local graph for notes

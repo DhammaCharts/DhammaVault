@@ -104,8 +104,13 @@ async function drawGraph(url,
 
   const simulation = d3.forceSimulation(data.nodes)
     .force("charge", d3.forceManyBody().strength(-100 * repelForce))
-    .force("link", d3.forceLink(data.links).id(d => d.id))
-    .force("center", d3.forceCenter());
+    .force("link", d3.forceLink(data.links).id(d => d.id).distance(40))
+    // .force("center", d3.forceCenter(0, 0))
+    .force("x", d3.forceX(0).strength(0.1))
+    .force("y", d3.forceY(0).strength(0.1))
+  // .force("collide", d3.forceCollide(9))
+  // .force("x", d3.forceX(width / 2).strength(0.02)
+  //   .force("y", d3.forceY(height / 2).strength(0.02)
 
   const svg = d3.select('#graph-container')
     .append('svg')
@@ -130,15 +135,32 @@ async function drawGraph(url,
   }
 
   // draw links between nodes
+
   const link = svg.append("g")
     .selectAll("line")
     .data(data.links)
     .join("line")
+    .attr("marker-end", "url(#arrow)")
     .attr("class", "link")
     .attr("stroke", "var(--g-link)")
     .attr("stroke-width", 2)
     .attr("data-source", d => d.source.id)
     .attr("data-target", d => d.target.id)
+
+  // build the arrow.
+  const arrow = svg.append("defs").append("marker")
+    .attr("id", "arrow")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", 0)
+    .attr("opacity", 1)
+    .attr("markerWidth", 3)
+    .attr("markerHeight", 3)
+    .attr("orient", "auto")
+    .attr("fill", "var(--g-link)")
+    .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
 
   // svg groups
   const graphNode = svg.append("g")
@@ -155,7 +177,6 @@ async function drawGraph(url,
   }
 
   // draw individual nodes
-
 
   const node = graphNode.append("circle")
     .attr("class", "node")
@@ -176,6 +197,7 @@ async function drawGraph(url,
       const neighbourNodes = d3.selectAll(".node").filter(d => neighbours.includes(d.id))
       const currentId = d.id
       const linkNodes = d3.selectAll(".link").filter(d => d.source.id === currentId || d.target.id === currentId)
+      // const arrowNodes = d3.selectAll("#arrow").filter(d => d.source.id === currentId || d.target.id === currentId)
 
       // highlight neighbour nodes
       neighbourNodes
@@ -188,6 +210,10 @@ async function drawGraph(url,
         .transition()
         .duration(200)
         .attr("stroke", "var(--g-link-active)")
+
+      // arrowNodes.transition()
+      //   .duration(200)
+      //   .attr("fill", "var(--g-link-active)")
 
       // show text for self
       d3.select(this.parentNode)
