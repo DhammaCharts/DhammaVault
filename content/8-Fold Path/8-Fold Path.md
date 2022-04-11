@@ -16,8 +16,6 @@ The **Noble 8-Fold Path** is composed of :
 7. [Right Mindfulness](8-Fold%20Path/Right%20Mindfulness.md)
 8. [Right Concentration](8-Fold%20Path/Right%20Concentration.md)
 
-[test](test/test.md)
-
 
 
 

@@ -4,11 +4,10 @@ tags:
 - Truth
 ---
 
-1. [[Suffering]] – To Be Understood
-2. [[Origin]] of Suffering – To Be Abandoned
-3. [[Cessation]] of Suffering – To Be Realised
-4. [[8-Fold Path]] to the Cessation of Suffering – To Be Develop
-5. [test](test/test.md)
+1. [Suffering](4%20Noble%20Truths/Suffering.md) – To Be Understood
+2. [Origin](4%20Noble%20Truths/Origin.md) of Suffering – To Be Abandoned
+3. [Cessation](4%20Noble%20Truths/Cessation.md) of Suffering – To Be Realised
+4. [8-Fold Path](8-Fold%20Path/8-Fold%20Path.md) to the Cessation of Suffering – To Be Develop
 
 
 > “Bhikkhus, those for whom you have compassion and who think you should be heeded—whether friends or colleagues, relatives or kinsmen— these you should exhort, settle, and establish for making the breakthrough to the Four Noble Truths as they really are.
