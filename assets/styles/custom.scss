@@ -9,6 +9,13 @@
   --gray: #4e4e4e;
   --lightgray: #f0f0f0;
   --outlinegray: #dadada;
+
+  .arrow {
+    // for some reason, it dosen't work if stays bellow...
+    fill: #dadada;
+    // fill-opacity: .3;
+  }
+
 }
 
 [saved-theme="dark"] {
@@ -21,4 +28,89 @@
   --gray: #d4d4d4 !important;
   --lightgray: #292633 !important;
   --outlinegray: #343434 !important;
+
+  .arrow {
+    fill: #343434;
+    // fill-opacity: .3;
+  }
 }
+
+// from graph.html
+// --g-node: var(--secondary);
+// --g-node-active: var(--primary);
+// --g-node-inactive: var(--visited);
+// --g-link: var(--outlinegray);
+// --g-link-active: #5a7282;
+
+
+.node {
+  fill: --g-node;
+  // stroke-width: 1.5px;
+}
+
+.node-active {
+  // fill: --g-node-active;
+  // stroke-width: 1.5px;
+}
+
+.link {
+  stroke: --g-link;
+}
+
+.link-active {
+  stroke: #5a7282;
+  // stroke-opacity: 1;
+}
+
+// .text {
+//   stroke-width: 0px;
+//   font-size: 12px;
+// }
+
+
+// .arrow {
+//   fill: #dadada;
+//   // fill-opacity: .3;
+// }
+
+.arrow-active {
+  fill: #5a7282;
+  // fill-opacity: 1;
+}
+
+
+// .node {
+//   stroke: --g-node;
+//   // stroke-width: 1.5px;
+// }
+
+// .node-active {
+//   stroke: --g-node-active;
+//   // stroke-width: 1.5px;
+// }
+
+// .link {
+//   stroke: --g-link;
+//   // stroke-opacity: .3;
+// }
+
+// .link-active {
+//   stroke: --g-link-active;
+//   // stroke-opacity: 1;
+// }
+
+// // .text {
+// //   stroke-width: 0px;
+// //   font-size: 12px;
+// // }
+
+
+// .arrow {
+//   fill: --g-link;
+//   // fill-opacity: .3;
+// }
+
+// .arrow-active {
+//   fill: --g-link-active;
+//   // fill-opacity: 1;
+// }

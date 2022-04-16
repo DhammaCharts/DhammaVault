@@ -7,8 +7,8 @@ async function drawGraph(url,
   enableZoom,
   scale,
   repelForce,
-  centerForce,   // in progress 
-  linkDistance,  // in progress
+  centerForce,
+  linkDistance,
   fontSize,
   opacityNode,
   labelBottom = true,
@@ -147,7 +147,8 @@ async function drawGraph(url,
     .attr("class", "link")
     .attr("stroke", "var(--g-link)")
     .attr("stroke-width", 2)
-    .attr("marker-end", "url(#end)");
+  // .attr("data-source", d => d.source.id)
+  // .attr("data-target", d => d.target.id)
 
   // calculate node Radius
 
@@ -159,7 +160,6 @@ async function drawGraph(url,
 
   // build the arrows
   // from https://observablehq.com/@harrylove/draw-an-arrow-between-circles-with-d3-links
-  // using another code for highlights...
 
   const markerBoxWidth = 3;
   const markerBoxHeight = markerBoxWidth;
@@ -167,7 +167,7 @@ async function drawGraph(url,
   const refY = markerBoxHeight / 2;
   const arrowPoints = [[0, 0], [0, markerBoxHeight], [markerBoxWidth, markerBoxWidth / 2]];
 
-  const ajustXY = d => { // to take in acount noderadius when drawing arrows, see simulation.on(tick)
+  const ajustXY = d => { // to take in acount noderadius
 
     const xT = d.target.x;
     const yT = d.target.y;
@@ -181,78 +181,24 @@ async function drawGraph(url,
     return [xT2, yT2]
   }
 
+  // see https://stackoverflow.com/questions/36185522/d3-force-layout-hover-on-arrow 
+  // for a better approch of arrow and highlight. needs implementing
 
-  //////////////////////////// START ////////////////////
-  ///// of code from https://jsfiddle.net/dkroaefw/5/ //
-
-  var linkedByIndex = {};
-  data.links.forEach(function (d) {
-    linkedByIndex[d.source + "," + d.target] = true;
-  });
-
-  function isConnected(a, b) {
-    return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
-  }
-
-  function hasConnections(a) {
-    for (var property in linkedByIndex) {
-      s = property.split(",");
-      if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property])
-        return true;
-    }
-    return false;
-  }
-
-  var defs = svg.append("svg:defs");
-
-  // build the arrow.
-  var arrows = defs
-    .selectAll("marker")
-    .data(["end", "end-active"]) // Different link/path types can be defined here
-    .enter().append("svg:marker") // This section adds in the arrows
-    .attr("id", String)
+  const arrow = svg
+    .append('defs')
+    .append('marker')
+    .attr('id', 'arrow')
     .attr('viewBox', [0, 0, markerBoxWidth, markerBoxHeight])
     .attr('refX', refX)
     .attr('refY', refY)
     .attr('markerWidth', markerBoxWidth)
     .attr('markerHeight', markerBoxHeight)
-    .attr("orient", "auto")
-    .append("svg:path")
+    .attr('orient', 'auto-start-reverse')
+    .append('path')
+    .attr('class', 'arrowClass')
     .attr('d', d3.line()(arrowPoints))
     .attr('stroke', 'none')
-  // .attr('fill', 'var(--g-link)');
-
-  defs.select("#end").attr("class", "arrow");
-  defs.select("#end-active").attr("class", "arrow-active");
-
-  function set_highlight(d) {
-    node.select("text").text(function (o) {
-      return isConnected(d, o) ? o.name : "";
-    })
-    node.attr("class", function (o) {
-      return isConnected(d, o) ? "node-active" : "node";
-    });
-    link.attr("marker-end", function (o) {
-      return isLinkForNode(d, o) ? "url(#end-active)" : "url(#end)";
-    });
-    link.attr("class", function (o) {
-      return isLinkForNode(d, o) ? "link-active" : "link";
-    });
-  }
-
-  function isLinkForNode(node, link) {
-    return link.source.index == node.index || link.target.index == node.index;
-  }
-
-
-  function exit_highlight(d) {
-    node.attr("class", "node");
-    link.attr("class", "link");
-    link.attr("marker-end", "url(#end)");
-    node.select("text").text("")
-  }
-
-  //////////////////////////// END ////////////////////////
+    .attr('fill', 'var(--g-link)');
 
   // svg groups
   const graphNode = svg.append("g")
@@ -288,11 +234,11 @@ async function drawGraph(url,
         .duration(200)
         .attr("fill", color)
 
-      // // highlight links
-      // linkNodes
-      //   .transition()
-      //   .duration(200)
-      //   .attr("stroke", "var(--g-link-active)")
+      // highlight links
+      linkNodes
+        .transition()
+        .duration(200)
+        .attr("stroke", "var(--g-link-active)")
 
       // show text for self
       d3.select(this.parentNode)
@@ -301,26 +247,17 @@ async function drawGraph(url,
         .transition()
         .duration(200)
         .style("opacity", 1)
-        .style("font-size", "12px")
-        .attr("dy", labelBottom ? d => nodeRadius(d) + 14 + "px" : ".35em") // radius is in px 
-        .attr("dx", labelBottom ? 0 : d => nodeRadius(d) + 8 + "px") // radius is in px
-
-
-      d3.select(this).select("circle").transition()
-        .duration(750)
-        .attr("r", 8);
-      set_highlight(d);
-
     }).on("mouseleave", function (_, d) {
 
       const currentId = d.id
       const linkNodes = d3.selectAll(".link").filter(d => d.source.id === currentId || d.target.id === currentId)
 
+      console.log(repelForce);
 
-      // linkNodes
-      //   .transition()
-      //   .duration(200)
-      //   .attr("stroke", "var(--g-link)")
+      linkNodes
+        .transition()
+        .duration(200)
+        .attr("stroke", "var(--g-link)")
 
       d3
         .selectAll("text")
@@ -328,22 +265,11 @@ async function drawGraph(url,
         .transition()
         .duration(200)
         .style("opacity", opacityNode)
-        .style("font-size", "8px")
-        .attr("dy", labelBottom ? d => nodeRadius(d) + 8 + "px" : ".35em") // radius is in px 
-        .attr("dx", labelBottom ? 0 : d => nodeRadius(d) + 4 + "px") // radius is in px
-
-
-
 
       d3.selectAll(".node")
         .transition()
         .duration(200)
         .attr("fill", color)
-
-      d3.select(this).select("circle").transition()
-        .duration(750)
-        .attr("r", 5);
-      exit_highlight(d)
 
     })
     .call(drag(simulation));

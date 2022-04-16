@@ -21,7 +21,7 @@ enableLegendGG: false
 enableDragGG: true
 enableZoomGG: true
 depthGG: -1 # set to -1 to show full graph
-labelBottomGG: true
+labelBottomGG: false
 scaleGG: 1.7
 repelForceGG: 1
 centerForceGG: 1
