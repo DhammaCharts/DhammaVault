@@ -7,24 +7,20 @@ async function drawGraph(url,
   enableZoom,
   scale,
   repelForce,
-  centerForce,
-  linkDistance,
+  centerForce,   // in progress 
+  linkDistance,  // in progress
   fontSize,
   opacityNode,
   labelBottom = true,
   squareFrame = false) {
 
-
-  // var doc = jsyaml.load('greeting: hello\nname: world');
-
-  // console.log(parse(doc))
   // Graph variable are in data/graphConfig.yaml
-
-
-  // could add variables for text position dx dy on node
   // add varialbe for arrow, text-fade threshold, node size, link thickness,
+  // could add a 3d option https://github.com/vasturiano/d3-force-3d
 
   // -------------------
+
+  // creates data
 
   const { index, links, content } = await fetchData
   const curPage = url.replace(baseUrl, "")
@@ -56,6 +52,8 @@ async function drawGraph(url,
     links: links.filter(l => neighbours.has(l.source) && neighbours.has(l.target)),
   }
 
+  // color function
+
   const color = (d) => {
     if (d.id === curPage || (d.id === "/" && curPage === "")) {
       return "var(--g-node-active)"
@@ -71,6 +69,8 @@ async function drawGraph(url,
 
     return "var(--g-node)"
   }
+
+  // drag
 
   const drag = simulation => {
     function dragstarted(event, d) {
@@ -110,7 +110,9 @@ async function drawGraph(url,
     .force("y", d3.forceY(0).strength(0.1))
   // .force("collide", d3.forceCollide(9))
   // .force("x", d3.forceX(width / 2).strength(0.02)
-  //   .force("y", d3.forceY(height / 2).strength(0.02)
+  //  .force("y", d3.forceY(height / 2).stren
+
+  // container
 
   const svg = d3.select('#graph-container')
     .append('svg')
@@ -119,6 +121,7 @@ async function drawGraph(url,
     .attr("viewBox", [-width / 2 * 1 / scale, -height / 2 * 1 / scale, width * 1 / scale, height * 1 / scale])
     .style("font-size", fontSize);
 
+  // Legend
 
   if (enableLegend) {
     const legend = [
@@ -138,43 +141,124 @@ async function drawGraph(url,
 
   const link = svg.append("g")
     .selectAll("line")
-    .data(data.links)
+    .data((data.links))
     .join("line")
     .attr("marker-end", "url(#arrow)")
     .attr("class", "link")
     .attr("stroke", "var(--g-link)")
     .attr("stroke-width", 2)
-    .attr("data-source", d => d.source.id)
-    .attr("data-target", d => d.target.id)
+    .attr("marker-end", "url(#end)");
 
-  // build the arrow.
-  const arrow = svg.append("defs").append("marker")
-    .attr("id", "arrow")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", 0)
-    .attr("opacity", 1)
-    .attr("markerWidth", 3)
-    .attr("markerHeight", 3)
-    .attr("orient", "auto")
-    .attr("fill", "var(--g-link)")
-    .append("svg:path")
-    .attr("d", "M0,-5L10,0L0,5");
-
-
-  // svg groups
-  const graphNode = svg.append("g")
-    .selectAll("g")
-    .data(data.nodes)
-    .enter().append("g")
-
-  // calculate node Radious
+  // calculate node Radius
 
   const nodeRadius = (d) => {
     const numOut = index.links[d.id]?.length || 0;
     const numIn = index.backlinks[d.id]?.length || 0;
     return 3 + (numOut + numIn) / 4;
   }
+
+  // build the arrows
+  // from https://observablehq.com/@harrylove/draw-an-arrow-between-circles-with-d3-links
+  // using another code for highlights...
+
+  const markerBoxWidth = 3;
+  const markerBoxHeight = markerBoxWidth;
+  const refX = markerBoxWidth / 2;
+  const refY = markerBoxHeight / 2;
+  const arrowPoints = [[0, 0], [0, markerBoxHeight], [markerBoxWidth, markerBoxWidth / 2]];
+
+  const ajustXY = d => { // to take in acount noderadius when drawing arrows, see simulation.on(tick)
+
+    const xT = d.target.x;
+    const yT = d.target.y;
+    const xS = d.source.x;
+    const yS = d.source.y;
+    const dia = Math.sqrt(Math.pow(xT - xS, 2) + Math.pow(yT - yS, 2));
+    const r = nodeRadius(d.target) + markerBoxHeight;
+    const xT2 = (dia - r) * (xT - xS) / dia + xS;
+    const yT2 = (dia - r) * (yT - yS) / dia + yS;
+
+    return [xT2, yT2]
+  }
+
+
+  //////////////////////////// START ////////////////////
+  ///// of code from https://jsfiddle.net/dkroaefw/5/ //
+
+  var linkedByIndex = {};
+  data.links.forEach(function (d) {
+    linkedByIndex[d.source + "," + d.target] = true;
+  });
+
+  function isConnected(a, b) {
+    return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+  }
+
+  function hasConnections(a) {
+    for (var property in linkedByIndex) {
+      s = property.split(",");
+      if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property])
+        return true;
+    }
+    return false;
+  }
+
+  var defs = svg.append("svg:defs");
+
+  // build the arrow.
+  var arrows = defs
+    .selectAll("marker")
+    .data(["end", "end-active"]) // Different link/path types can be defined here
+    .enter().append("svg:marker") // This section adds in the arrows
+    .attr("id", String)
+    .attr('viewBox', [0, 0, markerBoxWidth, markerBoxHeight])
+    .attr('refX', refX)
+    .attr('refY', refY)
+    .attr('markerWidth', markerBoxWidth)
+    .attr('markerHeight', markerBoxHeight)
+    .attr("orient", "auto")
+    .append("svg:path")
+    .attr('d', d3.line()(arrowPoints))
+    .attr('stroke', 'none')
+  // .attr('fill', 'var(--g-link)');
+
+  defs.select("#end").attr("class", "arrow");
+  defs.select("#end-active").attr("class", "arrow-active");
+
+  function set_highlight(d) {
+    node.select("text").text(function (o) {
+      return isConnected(d, o) ? o.name : "";
+    })
+    node.attr("class", function (o) {
+      return isConnected(d, o) ? "node-active" : "node";
+    });
+    link.attr("marker-end", function (o) {
+      return isLinkForNode(d, o) ? "url(#end-active)" : "url(#end)";
+    });
+    link.attr("class", function (o) {
+      return isLinkForNode(d, o) ? "link-active" : "link";
+    });
+  }
+
+  function isLinkForNode(node, link) {
+    return link.source.index == node.index || link.target.index == node.index;
+  }
+
+
+  function exit_highlight(d) {
+    node.attr("class", "node");
+    link.attr("class", "link");
+    link.attr("marker-end", "url(#end)");
+    node.select("text").text("")
+  }
+
+  //////////////////////////// END ////////////////////////
+
+  // svg groups
+  const graphNode = svg.append("g")
+    .selectAll("g")
+    .data(data.nodes)
+    .enter().append("g")
 
   // draw individual nodes
 
@@ -197,7 +281,6 @@ async function drawGraph(url,
       const neighbourNodes = d3.selectAll(".node").filter(d => neighbours.includes(d.id))
       const currentId = d.id
       const linkNodes = d3.selectAll(".link").filter(d => d.source.id === currentId || d.target.id === currentId)
-      // const arrowNodes = d3.selectAll("#arrow").filter(d => d.source.id === currentId || d.target.id === currentId)
 
       // highlight neighbour nodes
       neighbourNodes
@@ -205,15 +288,11 @@ async function drawGraph(url,
         .duration(200)
         .attr("fill", color)
 
-      // highlight links
-      linkNodes
-        .transition()
-        .duration(200)
-        .attr("stroke", "var(--g-link-active)")
-
-      // arrowNodes.transition()
+      // // highlight links
+      // linkNodes
+      //   .transition()
       //   .duration(200)
-      //   .attr("fill", "var(--g-link-active)")
+      //   .attr("stroke", "var(--g-link-active)")
 
       // show text for self
       d3.select(this.parentNode)
@@ -222,17 +301,26 @@ async function drawGraph(url,
         .transition()
         .duration(200)
         .style("opacity", 1)
+        .style("font-size", "12px")
+        .attr("dy", labelBottom ? d => nodeRadius(d) + 14 + "px" : ".35em") // radius is in px 
+        .attr("dx", labelBottom ? 0 : d => nodeRadius(d) + 8 + "px") // radius is in px
+
+
+      d3.select(this).select("circle").transition()
+        .duration(750)
+        .attr("r", 8);
+      set_highlight(d);
+
     }).on("mouseleave", function (_, d) {
 
       const currentId = d.id
       const linkNodes = d3.selectAll(".link").filter(d => d.source.id === currentId || d.target.id === currentId)
 
-      console.log(repelForce);
 
-      linkNodes
-        .transition()
-        .duration(200)
-        .attr("stroke", "var(--g-link)")
+      // linkNodes
+      //   .transition()
+      //   .duration(200)
+      //   .attr("stroke", "var(--g-link)")
 
       d3
         .selectAll("text")
@@ -240,11 +328,22 @@ async function drawGraph(url,
         .transition()
         .duration(200)
         .style("opacity", opacityNode)
+        .style("font-size", "8px")
+        .attr("dy", labelBottom ? d => nodeRadius(d) + 8 + "px" : ".35em") // radius is in px 
+        .attr("dx", labelBottom ? 0 : d => nodeRadius(d) + 4 + "px") // radius is in px
+
+
+
 
       d3.selectAll(".node")
         .transition()
         .duration(200)
         .attr("fill", color)
+
+      d3.select(this).select("circle").transition()
+        .duration(750)
+        .attr("r", 5);
+      exit_highlight(d)
 
     })
     .call(drag(simulation));
@@ -264,21 +363,6 @@ async function drawGraph(url,
     .raise()
     .call(drag(simulation));
 
-
-
-  // for testiing
-
-  // const test = svg
-  //     .append("text")
-  //     .style("font-size", "12px")
-  //     // .text("Test");
-  //     .text(content);
-
-  // console.log(content); // /.obsidian dosen't apear in content.
-  // console.log(content[]); // /.obsidian dosen't apear in content.
-  // console.log(content[""]); // /.obsidian dosen't apear in content.
-  // console.log(content[""].scale); // /.obsidian dosen't apear in content.
-
   // set panning
 
   if (enableZoom) {
@@ -293,12 +377,15 @@ async function drawGraph(url,
   }
 
   // progress the simulation
+
   simulation.on("tick", () => {
     link
       .attr("x1", d => d.source.x)
       .attr("y1", d => d.source.y)
-      .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y)
+      .attr("x2", d => ajustXY(d)[0])
+      .attr("y2", d => ajustXY(d)[1])
+    // .attr("x2", d => d.target.x)
+    // .attr("y2", d => d.target.y)
     labels
       .attr("x", d => d.x)
       .attr("y", d => d.y)
@@ -309,4 +396,5 @@ async function drawGraph(url,
       .raise()
 
   });
+
 }
