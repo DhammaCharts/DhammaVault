@@ -15,7 +15,7 @@ opacityNode: 0.6
 
 ### Global Graph ###
 
-enableGobalGraph : true # if true it will be shown on index
+enableGobalGraph : true # if true it will be shown on index page
 
 enableLegendGG: false
 enableDragGG: true
