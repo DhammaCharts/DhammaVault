@@ -8,6 +8,6 @@ tags:
 
 1. Kamma
 2. Rebirt
-3. [4 Noble Truth](4%20Noble%20Truths/4%20Noble%20Truth.md)
+3. [4 Noble Truth](4%20Noble%20Truth.md)
 
 
