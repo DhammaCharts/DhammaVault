@@ -1,8 +1,10 @@
-name: FractalCitta
+name: Cittadhammo
 enableToc: true
 openToc: false
 enableLinkPreview: true
 enableLatex: true
+enableSPA: true
+enableContextualBacklinks: true
 description:
   All the concepts of Dhamma
 page_title:
