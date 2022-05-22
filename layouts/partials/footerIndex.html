@@ -1,17 +1,20 @@
-<hr />
-<div class="page-end">
-    {{if $.Site.Data.graphConfig.enableGobalGraph}}
-    {{partial "graphG.html" .}}
-    {{else}}
+{{if $.Site.Data.graphConfig.enableLocalGraph}}
+    <div class="page-end">
 
-    <div class="backlinks-container">
-        {{partial "backlinks.html" .}}
+      <div>
+          {{partial "graph.html" .}}
+      </div>
+
     </div>
-    <div>
-        {{partial "graph.html" .}}
+{{else}}
+    <hr/>
+    <div class="page-end">
+      <div class="backlinks-container">
+          {{partial "backlinks.html" .}}
+      </div>
+      <div>
+          {{partial "graph.html" .}}
+      </div>
+
     </div>
-    {{end}}
-
-</div>
-
-{{partial "contact.html" .}}
+{{end}}

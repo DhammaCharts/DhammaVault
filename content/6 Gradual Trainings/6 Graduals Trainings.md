@@ -8,5 +8,5 @@ tags:
 3. [Heaven](6%20Gradual%20Trainings/Heaven.md)
 4. [Drawbacks](6%20Gradual%20Trainings/Drawbacks.md)
 5. [Renunciation](6%20Gradual%20Trainings/Renunciation.md)
-6. [4 Noble Truth](4%20Noble%20Truth.md)
+6. [4 Noble Truths](4%20Noble%20Truths/4%20Noble%20Truths.md)
 

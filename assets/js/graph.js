@@ -4,7 +4,10 @@ async function drawGraph(
   depth,
   enableDrag,
   enableLegend,
-  enableZoom
+  enableZoom,
+  // enableLocalGraph,
+  isHome,
+  opacityScale
 ) {
   const container = document.getElementById('graph-container')
   const { index, links, content } = await fetchData
@@ -94,7 +97,7 @@ async function drawGraph(
       .on('end', enableDrag ? dragended : noop)
   }
 
-  const height = Math.max(container.offsetHeight, 250)
+  const height = Math.max(container.offsetHeight, isHome ? 500 : 250)
   const width = container.offsetWidth
 
   const simulation = d3
@@ -216,6 +219,7 @@ async function drawGraph(
         .select('text')
         .transition()
         .duration(200)
+        .attr('opacityOld', d3.select(this.parentNode).select('text').style("opacity"))
         .style('opacity', 1)
     })
     .on('mouseleave', function(_, d) {
@@ -232,7 +236,7 @@ async function drawGraph(
         .select('text')
         .transition()
         .duration(200)
-        .style('opacity', 0)
+        .style('opacity', d3.select(this.parentNode).select('text').attr("opacityOld"))
     })
     .call(drag(simulation))
 
@@ -243,7 +247,7 @@ async function drawGraph(
     .attr('dy', (d) => nodeRadius(d) + 8 + 'px')
     .attr('text-anchor', 'middle')
     .text((d) => content[d.id]?.title || d.id.replace('-', ' '))
-    .style('opacity', 0)
+    .style('opacity', (opacityScale - 1) / 3.75)
     .style('pointer-events', 'none')
     .style('font-size', '0.4em')
     .raise()
@@ -263,7 +267,7 @@ async function drawGraph(
         .on('zoom', ({ transform }) => {
           link.attr('transform', transform)
           node.attr('transform', transform)
-          const scale = transform.k
+          const scale = transform.k * opacityScale;
           const scaledOpacity = Math.max((scale - 1) / 3.75, 0)
           labels.attr('transform', transform).style('opacity', scaledOpacity)
         })
