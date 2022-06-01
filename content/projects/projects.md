@@ -1,5 +1,5 @@
 ---
-title: "Porjects"
+title: "Projects"
 tags: 
 ---
 

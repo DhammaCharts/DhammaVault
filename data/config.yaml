@@ -4,11 +4,13 @@ openToc: false
 enableLinkPreview: true
 enableLatex: true
 enableSPA: true
+enableFooter: true
 enableContextualBacklinks: true
+enableRecentNotes: false
 description:
   "My personal vault"
 page_title:
-  "Cittadhammo's Vault"
+  "Vault"
 links:
   - link_name: DhammaCharts
     link: https://dhammacharts.github.io
