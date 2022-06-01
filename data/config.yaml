@@ -6,11 +6,9 @@ enableLatex: true
 enableSPA: true
 enableContextualBacklinks: true
 description:
-  All the concepts of Dhamma
+  "My personal vault"
 page_title:
-  "DhammaVault"
+  "Vault"
 links:
-  - link_name: Sources
-    link: https://dhammacharts.github.io/vault/sources
   - link_name: DhammaCharts
     link: https://dhammacharts.github.io
