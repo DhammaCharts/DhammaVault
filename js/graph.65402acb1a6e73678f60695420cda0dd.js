@@ -5,9 +5,11 @@ async function drawGraph(
   enableDrag,
   enableLegend,
   enableZoom,
-  // enableLocalGraph,
   isHome,
-  opacityScale
+  opacityScale,
+  scale,
+  repelForce,
+  fontSize
 ) {
   const container = document.getElementById('graph-container')
   const { index, links, content } = await fetchData
@@ -102,7 +104,7 @@ async function drawGraph(
 
   const simulation = d3
     .forceSimulation(data.nodes)
-    .force('charge', d3.forceManyBody().strength(-30))
+    .force('charge', d3.forceManyBody().strength(-100 * repelForce))
     .force(
       'link',
       d3
@@ -117,7 +119,7 @@ async function drawGraph(
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-    .attr('viewBox', [-width / 2, -height / 2, width, height])
+    .attr('viewBox', [-width / 2 * 1 / scale, -height / 2 * 1 / scale, width * 1 / scale, height * 1 / scale])
 
   if (enableLegend) {
     const legend = [
@@ -213,6 +215,8 @@ async function drawGraph(
         .duration(200)
         .attr('stroke', 'var(--g-link-active)')
 
+      const bigFont = fontSize+0.5
+
       // show text for self
       d3.select(this.parentNode)
         .raise()
@@ -221,6 +225,8 @@ async function drawGraph(
         .duration(200)
         .attr('opacityOld', d3.select(this.parentNode).select('text').style("opacity"))
         .style('opacity', 1)
+        .style('font-size', bigFont+'em')
+        .attr('dy', d => nodeRadius(d) + 20 + 'px') // radius is in px
     })
     .on('mouseleave', function(_, d) {
       d3.selectAll('.node').transition().duration(200).attr('fill', color)
@@ -237,6 +243,9 @@ async function drawGraph(
         .transition()
         .duration(200)
         .style('opacity', d3.select(this.parentNode).select('text').attr("opacityOld"))
+        .style('font-size', fontSize+'em')
+        .attr('dy', d => nodeRadius(d) + 8 + 'px') // radius is in px
+
     })
     .call(drag(simulation))
 
@@ -249,7 +258,7 @@ async function drawGraph(
     .text((d) => content[d.id]?.title || d.id.replace('-', ' '))
     .style('opacity', (opacityScale - 1) / 3.75)
     .style('pointer-events', 'none')
-    .style('font-size', '0.4em')
+    .style('font-size', fontSize+'em')
     .raise()
     .call(drag(simulation))
 
