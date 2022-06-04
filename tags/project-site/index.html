@@ -1,11 +1,16 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content><title>project, site</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://www.dhammacharts.org/vault//icon.png><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Fira+Code:wght@400;700&display=swap" rel=stylesheet><link href=https://www.dhammacharts.org/vault/styles.f46e85a2e0f617561bc6ceff1c7a5d16.min.css rel=stylesheet><script src=https://www.dhammacharts.org/vault/js/darkmode.46b07878b7f5d9e26ad7a3c40f8a0605.min.js></script>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content><title>project, site</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://www.dhammacharts.org/vault//icon.png><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Fira+Code:wght@400;700&display=swap" rel=stylesheet><link href=https://www.dhammacharts.org/vault/styles.4225643155e5d806a8e845219a8f065b.min.css rel=stylesheet><script src=https://www.dhammacharts.org/vault/js/darkmode.46b07878b7f5d9e26ad7a3c40f8a0605.min.js></script>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
 <script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
 <script src=https://www.dhammacharts.org/vault/js/popover.688c5dcb89a57776d7f1cbeaf6f7c44b.min.js></script>
-<script>const BASE_URL="https://www.dhammacharts.org/vault/",fetchData=Promise.all([fetch("https://www.dhammacharts.org/vault/indices/linkIndex.3cb1ece75cdaf020441e353e8f556468.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://www.dhammacharts.org/vault/indices/contentIndex.07bebe0cfb409f71d282a055f0ee6515.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n}))</script><script type=module>
+<script src=https://www.dhammacharts.org/vault/js/tree.687d66b623738b3292a72cf53311682b.js></script>
+<script src=https://www.dhammacharts.org/vault/js/drawTree.4a89add6598ded2fb180a5590a47d8e5.js></script>
+<script>const BASE_URL="https://www.dhammacharts.org/vault/",fetchData=Promise.all([fetch("https://www.dhammacharts.org/vault/indices/linkIndex.3cb1ece75cdaf020441e353e8f556468.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://www.dhammacharts.org/vault/indices/contentIndex.b8ada29b5b49d90a0b45e10f77bdcb02.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n}))</script><script type=module>
     import { attachSPARouting } from 'https:\/\/www.dhammacharts.org\/vault\/js\/router.88d6def7f687fe498bfc6de6c16d554b.min.js';
+    drawTree();
+
     
     const draw = () => {
+
 
       const siteBaseURL = new URL("https://www.dhammacharts.org/vault/");
       const pathBase = siteBaseURL.pathname;
