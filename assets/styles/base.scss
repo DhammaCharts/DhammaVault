@@ -1,3 +1,11 @@
+/* Breakpoint
+ ****************************************************************/
+
+$breakpoint-small: 600px;
+$breakpoint-medium: 700px; // original 780
+$breakpoint-large: 1000px; // original 1200
+
+
 :root {
   --lt-colours-light: var(--light) !important;
   --lt-colours-lightgray: var(--lightgray) !important;
@@ -305,20 +313,23 @@ hr {
   background-color: var(--dark);
 }
 
-.singlePage {
-  padding: 4em 30vw;
+// .singlePage {
+  // padding: 4em 30vw;
+  // padding: 4em 0;
+  // width: 600px;
+  // margin: auto;
 
-  @media all and (max-width: 1200px) {
-    padding: 25px 5vw;
-  }
-}
+//   @media all and (max-width: $breakpoint-large) {
+//     padding: 25px 5vw;
+//   }
+// }
 
 .page-end {
   display: flex;
-  flex-direction: row;
-  gap: 2em;
+  flex-direction: column;
+  // gap: 2em;
 
-  @media all and (max-width: 780px) {
+  @media all and (max-width: $breakpoint-medium) {
     flex-direction: column;
   }
 
@@ -342,6 +353,7 @@ hr {
 
   & #graph-container {
     border: var(--outlinegray) 1px solid;
+    // border: black solid 1px;
     border-radius: 5px;
     box-sizing: border-box;
     min-height: 250px;
@@ -371,7 +383,7 @@ header {
   }
 
   & > nav {
-    @media all and (max-width: 600px) {
+    @media all and (max-width: $breakpoint-small) {
       display: none;
     }
   }
@@ -416,7 +428,7 @@ header {
     margin-left: auto;
     margin-right: auto;
 
-    @media all and (max-width: 1200px) {
+    @media all and (max-width: $breakpoint-large) {
       width: 90%;
     }
 
@@ -546,7 +558,7 @@ header {
   overflow-wrap: anywhere;
   box-shadow: 6px 6px 36px 0px rgba(0,0,0,0.25);
 
-  @media all and (max-width: 600px) {
+  @media all and (max-width: $breakpoint-small) {
     display: none !important;
   }
 

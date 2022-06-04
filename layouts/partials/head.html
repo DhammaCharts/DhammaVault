@@ -39,6 +39,12 @@
   resources.Minify }}
   <script src="{{$popover.Permalink}}"></script>
 
+  {{ $tree := resources.Get "js/tree.js" | resources.Fingerprint "md5" }}
+  <script src="{{ $tree.Permalink }}"></script>
+
+  {{ $drawTree := resources.Get "js/drawTree.js" | resources.Fingerprint "md5" }}
+  <script src="{{ $drawTree.Permalink }}"></script>
+
   <!--  Preload page vars  -->
   {{$linkIndex := resources.Get "indices/linkIndex.json" | resources.Fingerprint
   "md5" | resources.Minify | }} {{$contentIndex := resources.Get
@@ -67,8 +73,11 @@
   resources.Minify }}
   <script type="module">
     import { attachSPARouting } from '{{$router.Permalink}}';
+    drawTree();
+
     // NOTE: everything within this callback will be executed for every page navigation. This is a good place to put JavaScript that loads or modifies data on the page.
     const draw = () => {
+
 
       const siteBaseURL = new URL({{$.Site.BaseURL}});
       const pathBase = siteBaseURL.pathname;
