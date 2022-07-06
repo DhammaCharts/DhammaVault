@@ -4,6 +4,6 @@ tags: project
 ---
 
 - put online
-- link to [dhammacharts.org](projects/dhammacharts.org.md)
+- link to [dhammachart](projects/dhammachart.md)
 - 
 
