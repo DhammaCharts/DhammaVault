@@ -3,10 +3,14 @@ enableToc: true
 openToc: false
 enableLinkPreview: true
 enableLatex: true
+enableCodeBlockTitle: true
+enableCodeBlockCopy: true
 enableSPA: true
 enableFooter: true
 enableContextualBacklinks: true
 enableRecentNotes: false
+enableGitHubEdit: false
+GitHubLink: https://github.com/DhammaCharts/vault
 description:
   "My personal vault"
 page_title:
